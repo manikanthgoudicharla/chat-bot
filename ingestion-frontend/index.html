@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Upload JSON Document to Pinecone</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(to right, #d9e4f5, #f1f5f9);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center">
+
+  <div class="w-full max-w-md p-8 bg-white rounded-2xl shadow-lg border border-gray-200">
+    <h1 class="text-2xl font-bold text-center mb-6 text-gray-800">📤 Upload JSON Document</h1>
+
+    <label class="block mb-4">
+      <input type="file" id="fileInput" accept=".json"
+        class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+    </label>
+
+    <button onclick="uploadJSON()"
+      class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">
+      Upload to Pinecone
+    </button>
+
+    <p id="status" class="text-center mt-4 text-gray-700 font-medium"></p>
+  </div>
+
+  <script>
+    async function uploadJSON() {
+      const input = document.getElementById('fileInput');
+      const status = document.getElementById('status');
+      status.textContent = "";
+
+      if (!input.files.length) {
+        status.textContent = "⚠️ Please select a JSON file.";
+        status.className = "text-yellow-600 text-center mt-4 font-medium";
+        return;
+      }
+
+      const file = input.files[0];
+      if (file.type !== "application/json") {
+        status.textContent = "❌ Invalid file type. Please upload a .json file.";
+        status.className = "text-red-600 text-center mt-4 font-medium";
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = async function(event) {
+        try {
+          const jsonContent = JSON.parse(event.target.result);
+
+          const response = await fetch("http://localhost:8000/vectors/upsertdocuments", {
+
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(jsonContent)
+          });
+
+          const result = await response.json();
+          if (!response.ok) {
+status.textContent = `❌ Error: ${JSON.stringify(result.detail || result || "Upload failed")}`;
+
+            status.className = "text-red-600 text-center mt-4 font-medium";
+          } else {
+            status.textContent = `✅ Successfully upserted ${result.upserted} chunks.`;
+            status.className = "text-green-600 text-center mt-4 font-medium";
+          }
+
+        } catch (error) {
+          status.textContent = `❌ Error parsing JSON: ${error.message}`;
+          status.className = "text-red-600 text-center mt-4 font-medium";
+        }
+      };
+      reader.readAsText(file);
+    }
+  </script>
+
+</body>
+</html>

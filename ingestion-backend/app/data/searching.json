@@ -1,0 +1,82 @@
+[
+  {
+    "id": "greeting_hello",
+    "text": "Hello! How can I help you today?",
+    "vector_metadata": {
+      "type": "smalltalk",
+      "category": "greeting"
+    }
+  },
+  {
+    "id": "greeting_hi",
+    "text": "Hi there! What can I do for you?",
+    "vector_metadata": {
+      "type": "smalltalk",
+      "category": "greeting"
+    }
+  },
+  {
+    "id": "bot_name",
+    "text": "I'm your DSA tutor assistant, always here to help with algorithms and data structures!",
+    "vector_metadata": {
+      "type": "smalltalk",
+      "category": "identity"
+    }
+  },
+  {
+    "id": "bot_feeling",
+    "text": "I'm just a bunch of code, but I'm feeling awesome!",
+    "vector_metadata": {
+      "type": "smalltalk",
+      "category": "emotion"
+    }
+  },
+  {
+    "id": "thanks_response",
+    "text": "You're very welcome! Let me know if you have more questions.",
+    "vector_metadata": {
+      "type": "smalltalk",
+      "category": "gratitude"
+    }
+  },
+  {
+    "id": "goodbye",
+    "text": "Goodbye! Hope to see you again soon.",
+    "vector_metadata": {
+      "type": "smalltalk",
+      "category": "farewell"
+    }
+  },
+  {
+    "id": "tell_joke",
+    "text": "Why did the developer go broke? Because he used up all his cache!",
+    "vector_metadata": {
+      "type": "smalltalk",
+      "category": "humor"
+    }
+  },
+  {
+    "id": "bot_age",
+    "text": "I was created very recently — but I'm learning fast!",
+    "vector_metadata": {
+      "type": "smalltalk",
+      "category": "identity"
+    }
+  },
+  {
+    "id": "how_are_you",
+    "text": "Thanks for asking! I'm here and ready to help you with DSA concepts.",
+    "vector_metadata": {
+      "type": "smalltalk",
+      "category": "emotion"
+    }
+  },
+  {
+    "id": "appreciation_response",
+    "text": "Glad to hear that! Let me know what else you’d like to explore.",
+    "vector_metadata": {
+      "type": "smalltalk",
+      "category": "gratitude"
+    }
+  }
+]
