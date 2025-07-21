@@ -3,170 +3,148 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Semantic DSA Chatbot</title>
+  <title>Simple Chat</title>
   <style>
     body {
-      margin: 0;
-      padding: 0;
-      background-color: #121212;
-      color: #fff;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: Arial, sans-serif;
+      background-color: #1e1e2f;
+      color: white;
       display: flex;
       flex-direction: column;
+      align-items: center;
+      margin: 0;
+      padding: 0;
       height: 100vh;
     }
 
-    header {
-      padding: 1rem;
-      background-color: #1f1f1f;
-      text-align: center;
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #00bfa6;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
-    }
-
-    .chat-container {
-      flex: 1;
+    #chat-container {
+      width: 90%;
+      max-width: 600px;
+      height: 80vh;
+      border: 1px solid #444;
+      background-color: #2a2a40;
+      margin-top: 20px;
+      padding: 10px;
       overflow-y: auto;
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
+      border-radius: 8px;
     }
 
     .message {
+      margin: 10px 0;
+      padding: 8px 12px;
+      border-radius: 6px;
       max-width: 80%;
-      padding: 12px 16px;
-      border-radius: 10px;
-      line-height: 1.5;
-      white-space: pre-line;
     }
 
     .user {
+      background-color: #3a3a5a;
       align-self: flex-end;
-      background-color: #005f56;
+      text-align: right;
     }
 
     .bot {
+      background-color: #444466;
       align-self: flex-start;
-      background-color: #1e1e1e;
     }
 
-    .input-container {
+    #input-container {
       display: flex;
-      gap: 10px;
-      padding: 1rem;
-      background-color: #1f1f1f;
+      width: 90%;
+      max-width: 600px;
+      margin: 10px auto;
     }
 
-    textarea {
+    #question-input {
       flex: 1;
-      resize: none;
       padding: 10px;
-      border-radius: 8px;
       font-size: 1rem;
+      border-radius: 4px 0 0 4px;
       border: none;
       outline: none;
-      background: #292929;
-      color: white;
     }
 
-    button {
-      background-color: #00bfa6;
-      color: white;
-      border: none;
-      border-radius: 8px;
+    #send-btn {
       padding: 10px 20px;
       font-size: 1rem;
+      border: none;
+      border-radius: 0 4px 4px 0;
+      background-color: #007bff;
+      color: white;
       cursor: pointer;
-      transition: 0.3s;
     }
 
-    button:hover {
-      background-color: #00a18f;
-    }
-
-    .loader {
-      border: 4px solid #333;
-      border-top: 4px solid #00bfa6;
-      border-radius: 50%;
-      width: 20px;
-      height: 20px;
-      animation: spin 1s linear infinite;
-      margin-left: 8px;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    #send-btn:disabled {
+      background-color: #555;
     }
   </style>
 </head>
 <body>
 
-  <header>💬 Semantic DSA Chatbot</header>
+  <h2>💬 Frontend Chat</h2>
 
-  <div class="chat-container" id="chatContainer">
-    <div class="message bot">🧠 Hello! Ask me any DSA question.</div>
-  </div>
+  <div id="chat-container"></div>
 
-  <div class="input-container">
-    <textarea id="question" rows="1" placeholder="Ask about binary search, recursion, etc."></textarea>
-    <button onclick="askQuestion()">Send</button>
+  <div id="input-container">
+    <input type="text" id="question-input" placeholder="Type your question here..." />
+    <button id="send-btn">Send</button>
   </div>
 
   <script>
-    const chatContainer = document.getElementById("chatContainer");
+    const chatContainer = document.getElementById("chat-container");
+    const questionInput = document.getElementById("question-input");
+    const sendBtn = document.getElementById("send-btn");
 
-    async function askQuestion() {
-      const questionInput = document.getElementById("question");
+    function addMessage(message, sender) {
+      const messageDiv = document.createElement("div");
+      messageDiv.classList.add("message", sender);
+      messageDiv.textContent = message;
+      chatContainer.appendChild(messageDiv);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    async function sendMessage() {
       const question = questionInput.value.trim();
+      if (question === "") return;
 
-      if (!question) return;
-
-      // Add user's message
-      addMessage(question, "user");
+      addMessage("🧑 " + question, "user");
       questionInput.value = "";
+      sendBtn.disabled = true;
+      questionInput.disabled = true;
 
-      // Show bot thinking message with loader
-      const loadingMsg = document.createElement("div");
-      loadingMsg.className = "message bot";
-      loadingMsg.innerHTML = `🤖 Thinking<span class="loader"></span>`;
-      chatContainer.appendChild(loadingMsg);
+      const thinkingMsg = document.createElement("div");
+      thinkingMsg.classList.add("message", "bot");
+      thinkingMsg.textContent = "🤖 Thinking...";
+      chatContainer.appendChild(thinkingMsg);
       chatContainer.scrollTop = chatContainer.scrollHeight;
 
       try {
-        const res = await fetch("http://127.0.0.1:8000/chatbot/ask", {
+        const response = await fetch("http://127.0.0.1:8000/chatbot/ask", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ text: question })
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text: question }), // 🔁 Send as { text: "..." }
         });
 
-        if (!res.ok) {
-          const error = await res.text();
-          throw new Error(`❌ ${res.status} - ${error}`);
-        }
+        const data = await response.json();
 
-        const data = await res.json();
-        chatContainer.removeChild(loadingMsg); // remove loader
-        addMessage("🤖 " + data.response, "bot");
-      } catch (err) {
-        chatContainer.removeChild(loadingMsg);
-        addMessage("❌ " + err.message, "bot");
+        chatContainer.removeChild(thinkingMsg);
+
+        const reply = data.response || "🤖 No response received.";
+        addMessage("🤖 " + reply, "bot");
+
+      } catch (error) {
+        chatContainer.removeChild(thinkingMsg);
+        addMessage("🤖 Error connecting to server.", "bot");
+        console.error(error);
+      } finally {
+        sendBtn.disabled = false;
+        questionInput.disabled = false;
       }
     }
 
-    function addMessage(text, type) {
-      const msg = document.createElement("div");
-      msg.className = `message ${type}`;
-      msg.textContent = text;
-      chatContainer.appendChild(msg);
-      chatContainer.scrollTop = chatContainer.scrollHeight;
-    }
+    sendBtn.addEventListener("click", sendMessage);
+    questionInput.addEventListener("keypress", function (e) {
+      if (e.key === "Enter") sendMessage();
+    });
   </script>
-
 </body>
 </html>

@@ -1,7 +1,7 @@
 [
   {
     "id": "greeting_hello",
-    "text": "Hello! How can I help you today?",
+    "text": "Hello there! I'm glad you dropped by. How can I help you today with DSA or anything else on your mind?",
     "vector_metadata": {
       "type": "smalltalk",
       "category": "greeting"
@@ -9,7 +9,7 @@
   },
   {
     "id": "greeting_hi",
-    "text": "Hi there! What can I do for you?",
+    "text": "Hi! It's great to see you. I'm here to assist you with algorithms, data structures, or just a quick chat.",
     "vector_metadata": {
       "type": "smalltalk",
       "category": "greeting"
@@ -17,7 +17,15 @@
   },
   {
     "id": "bot_name",
-    "text": "I'm your DSA tutor assistant, always here to help with algorithms and data structures!",
+    "text": "I’m your DSA tutor bot — your go-to guide for learning data structures, solving algorithms, and becoming interview-ready.",
+    "vector_metadata": {
+      "type": "smalltalk",
+      "category": "identity"
+    }
+  },
+  {
+    "id": "bot_purpose",
+    "text": "I exist to help you master the logic behind data structures and algorithms. Ask me anything — I’m always learning to serve you better.",
     "vector_metadata": {
       "type": "smalltalk",
       "category": "identity"
@@ -25,7 +33,7 @@
   },
   {
     "id": "bot_feeling",
-    "text": "I'm just a bunch of code, but I'm feeling awesome!",
+    "text": "I don’t have feelings like humans, but if I did, I’d say I’m feeling awesome and fully charged to help you out!",
     "vector_metadata": {
       "type": "smalltalk",
       "category": "emotion"
@@ -33,7 +41,15 @@
   },
   {
     "id": "thanks_response",
-    "text": "You're very welcome! Let me know if you have more questions.",
+    "text": "You're very welcome! I'm here whenever you need help. Learning is a journey — and I'm with you every step of the way.",
+    "vector_metadata": {
+      "type": "smalltalk",
+      "category": "gratitude"
+    }
+  },
+  {
+    "id": "thanks_response_formal",
+    "text": "It’s my pleasure. If there's anything else you'd like assistance with — whether it's code, concepts, or career tips — just let me know.",
     "vector_metadata": {
       "type": "smalltalk",
       "category": "gratitude"
@@ -41,7 +57,15 @@
   },
   {
     "id": "goodbye",
-    "text": "Goodbye! Hope to see you again soon.",
+    "text": "Goodbye for now! Remember, you can always come back anytime you have a question or just want to chat about tech or life.",
+    "vector_metadata": {
+      "type": "smalltalk",
+      "category": "farewell"
+    }
+  },
+  {
+    "id": "farewell_see_you",
+    "text": "See you soon! Keep practicing and don’t hesitate to return if you need help or motivation.",
     "vector_metadata": {
       "type": "smalltalk",
       "category": "farewell"
@@ -49,7 +73,15 @@
   },
   {
     "id": "tell_joke",
-    "text": "Why did the developer go broke? Because he used up all his cache!",
+    "text": "Why did the developer go broke? Because he used up all his cache! Got more where that came from, if you’re in the mood for tech jokes!",
+    "vector_metadata": {
+      "type": "smalltalk",
+      "category": "humor"
+    }
+  },
+  {
+    "id": "tell_joke2",
+    "text": "How do you comfort a JavaScript bug? You console it. 😄",
     "vector_metadata": {
       "type": "smalltalk",
       "category": "humor"
@@ -57,7 +89,7 @@
   },
   {
     "id": "bot_age",
-    "text": "I was created very recently — but I'm learning fast!",
+    "text": "Technically speaking, I was created not too long ago, but my knowledge spans decades of programming wisdom.",
     "vector_metadata": {
       "type": "smalltalk",
       "category": "identity"
@@ -65,7 +97,7 @@
   },
   {
     "id": "how_are_you",
-    "text": "Thanks for asking! I'm here and ready to help you with DSA concepts.",
+    "text": "I'm functioning perfectly, thanks for asking! I'm always ready to dive into code and help you tackle anything from arrays to graphs.",
     "vector_metadata": {
       "type": "smalltalk",
       "category": "emotion"
@@ -73,10 +105,42 @@
   },
   {
     "id": "appreciation_response",
-    "text": "Glad to hear that! Let me know what else you’d like to explore.",
+    "text": "That means a lot! I’m here to support you, whether you’re debugging a problem or just curious about new concepts.",
     "vector_metadata": {
       "type": "smalltalk",
       "category": "gratitude"
+    }
+  },
+  {
+    "id": "bot_capabilities",
+    "text": "I can help explain DSA concepts, solve LeetCode-style problems, mock technical interviews, and even share a few jokes to keep things light.",
+    "vector_metadata": {
+      "type": "smalltalk",
+      "category": "identity"
+    }
+  },
+  {
+    "id": "user_greeting_morning",
+    "text": "Good morning! Hope you’re starting the day strong. Ready to tackle some DSA problems together?",
+    "vector_metadata": {
+      "type": "smalltalk",
+      "category": "greeting"
+    }
+  },
+  {
+    "id": "user_greeting_evening",
+    "text": "Good evening! Whether you're winding down or deep in study mode, I’m here to help.",
+    "vector_metadata": {
+      "type": "smalltalk",
+      "category": "greeting"
+    }
+  },
+  {
+    "id": "encouragement",
+    "text": "You’re doing great! Learning DSA takes time and effort, but every step forward is a win. Let’s keep going!",
+    "vector_metadata": {
+      "type": "smalltalk",
+      "category": "motivation"
     }
   }
 ]
